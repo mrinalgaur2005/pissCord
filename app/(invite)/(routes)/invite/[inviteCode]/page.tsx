@@ -2,7 +2,6 @@ import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { auth} from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { useState } from "react";
 interface InviteCodePageParams {
     params:{
         inviteCode:string;
@@ -11,24 +10,21 @@ interface InviteCodePageParams {
 
 
 const InviteCodePage = async({params}:InviteCodePageParams) => {
-    const [isProfileThere,setIsProfileThere]=useState(false)
     const profile = await currentProfile();
 
-    if(!profile && !isProfileThere){
-        setIsProfileThere(true)
+    if(!profile){
         return auth().redirectToSignIn();
     }
 
     if (!params.inviteCode){
         return redirect("/");
     }
-
     const joinedServer = await db.server.findFirst({
         where:{
             inviteCode:params.inviteCode,
             members:{
                 some:{
-                    profileId:profile?.id,
+                    profileId:profile.id,
                 }
             },
         }
@@ -47,7 +43,7 @@ const InviteCodePage = async({params}:InviteCodePageParams) => {
             members:{
                 create:[
                     {
-                        profileId:profile?.id as string,
+                        profileId:profile.id,
 
                     }
                 ]
@@ -55,14 +51,16 @@ const InviteCodePage = async({params}:InviteCodePageParams) => {
         }
     });
 
+
+
     if(server){
         return redirect(`/servers/${server.id}`)
     }
+    
 
-
-    return (
+    return ( 
         <div>
-            This Is The Invite Page
+            Invite Page says HI
         </div>
     );
 }
