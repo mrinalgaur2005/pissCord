@@ -3,7 +3,8 @@ import {create} from "zustand";
 
 export type ModelType = "createServer" 
                         | "invite"
-                        | "editServer";
+                        | "editServer"
+                        | "manageMembers";
 
 interface ModelData{
     server?:Server;

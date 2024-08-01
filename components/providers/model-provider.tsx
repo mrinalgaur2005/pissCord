@@ -4,6 +4,7 @@ import {CreateServerModel} from "@/components/models/create-server-model"
 import { useEffect, useState } from "react";
 import { InviteModel } from "@/components/models/invite-model";
 import { EditServerModel } from "@/components/models/edit-server-model";
+import { ManageMembersModel } from "@/components/models/manage-members-model";
 
 export const ModelProvider = () =>{
     const [isMounted,setIsMounted]=useState(false);
@@ -19,6 +20,7 @@ export const ModelProvider = () =>{
             <CreateServerModel/>
             <InviteModel/>
             <EditServerModel/>
+            <ManageMembersModel/>
         </>
     )
 }
