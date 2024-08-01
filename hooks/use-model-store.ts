@@ -4,7 +4,8 @@ import {create} from "zustand";
 export type ModelType = "createServer" 
                         | "invite"
                         | "editServer"
-                        | "manageMembers";
+                        | "manageMembers"
+                        | "createChannels";
 
 interface ModelData{
     server?:Server;
