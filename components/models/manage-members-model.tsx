@@ -73,6 +73,23 @@ export const ManageMembersModel = () => {
         setLoadingId("")
     }
   }
+
+  const onKick = async (memberId:string) => {
+    try {
+        setLoadingId(memberId)
+        const url = qs.stringifyUrl({
+            url:`/api/members/${memberId}`,
+            query:{
+                serverId:server?.id,
+            }
+        })
+        const response = await axios.delete(url);
+        router.refresh();
+        onOpen("manageMembers",{server: response.data})
+    } catch (error) {
+        console.log(error);
+    }
+  }
   return (
     <Dialog open={isModelOpen} onOpenChange={onClose}>
         <DialogContent className='bg-white text-black overflow-hidden'>
@@ -145,7 +162,11 @@ export const ManageMembersModel = () => {
                                             </DropdownMenuPortal>
                                         </DropdownMenuSub>
                                         <DropdownMenuSeparator/>
-                                        <DropdownMenuItem>
+                                        <DropdownMenuItem
+                                        onClick={()=>{
+                                            onKick(member.id)
+                                        }}
+                                        >
                                             <Gavel className="h-4 w-4 mr-2"/>
                                             Kick
                                         </DropdownMenuItem>
