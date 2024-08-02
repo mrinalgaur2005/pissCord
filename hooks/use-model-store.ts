@@ -6,7 +6,8 @@ export type ModelType = "createServer"
                         | "editServer"
                         | "manageMembers"
                         | "createChannels"
-                        | "leaveServer";
+                        | "leaveServer"
+                        | "deleteServer";
 
 interface ModelData{
     server?:Server;

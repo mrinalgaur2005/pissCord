@@ -16,9 +16,9 @@ import { useRouter } from "next/navigation";
 
 
 
-export const LeaveServerModel = () => {
+export const DeleteServerModel = () => {
   const { isOpen, onClose, type ,data } = useModel();
-  const isModelOpen = isOpen && type === "leaveServer";  
+  const isModelOpen = isOpen && type === "deleteServer";  
   const[isLoading,setIsLoading]=useState(false);
   const router = useRouter();
   
@@ -26,7 +26,7 @@ export const LeaveServerModel = () => {
     try {
         setIsLoading(true)
         
-        await axios.patch(`/api/servers/${data?.server?.id}/leave`);
+        await axios.delete(`/api/servers/${data?.server?.id}/delete`);
         onClose()
         router.refresh();
         router.push('/')
@@ -42,10 +42,10 @@ export const LeaveServerModel = () => {
         <DialogContent className='bg-white text-black p-0 overflow-hidden'>
             <DialogHeader className='pt-8 px-6'>
                 <DialogTitle className='text-xl text-center font-bold'>
-                    Leave '{data?.server?.name}'
+                    Delete '{data?.server?.name}'
                 </DialogTitle>
                 <DialogDescription className="text-center text-zinc-500">
-                    Are you sure you want to leave  
+                    Are you sure you want to delete 
                     <span className="font-bold text-zinc-700"> {data?.server?.name}?</span>
                 </DialogDescription>
             </DialogHeader>

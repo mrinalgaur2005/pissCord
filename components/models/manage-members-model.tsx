@@ -50,7 +50,13 @@ export const ManageMembersModel = () => {
   const router = useRouter();
   const { isOpen,onOpen, onClose, type ,data } = useModel();
   const isModelOpen = isOpen && type === "manageMembers";  
-  const[loadingId,setLoadingId]=useState("");
+  const [loadingId,setLoadingId]=useState("");
+
+  // code was breaking when i tries to add invite through + as data was undefined
+  if (data === undefined){
+    return null;
+  }
+  
   const {server}= data as {server : ServerWithMembersWithProfiles}
 
   const onRoleChange = async (memberId:string,role:MemberRole) => {
