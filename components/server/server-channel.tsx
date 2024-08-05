@@ -5,7 +5,7 @@ import { Channel, ChannelType, MemberRole, Server } from "@prisma/client"
 import { Delete, Edit, Hash,Lock,Mic, Trash, Trash2, Video } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { ActionToolTip } from "../action-tooltip";
-import { useModel } from "@/hooks/use-model-store";
+import { ModelType, useModel } from "@/hooks/use-model-store";
 
 interface ServerChannelProps {
     channel:Channel;
@@ -33,11 +33,19 @@ export const ServerChannel = ({
     const params = useParams();
     const router = useRouter();
 
+    const onClick = () => {
+        router.push(`/servers/${params.serverId}/channels/${channel.id}`)
+    }
+
+    const onAction = (e:React.MouseEvent , action :ModelType)=>{
+        e.stopPropagation();
+        onOpen(action,{channel,server})
+    }
     const Icon = iconMap[channel.type];
 
     return (
         <button
-        onClick={()=>{}}
+        onClick={onClick}
         className={cn(
             "group px-2 py-2 rounded-md flex items-center gap-x-2 w-full hover:bg-zinc-700/10 hover:dark:bg-zinc-700/50 transition mb-1",
             params?.channelId === channel.id && "bg-zinc-700/20 dark:bg-zinc-700"
@@ -56,14 +64,14 @@ export const ServerChannel = ({
                 <div className="ml-auto flex items-center gap-x-2">
                     <ActionToolTip label="edit">
                         <Edit
-                        onClick={() =>onOpen("editChannel",{server,channel})}
+                        onClick={(e) =>onAction(e,"editChannel")}
                         className="h-4 w-4 hidden group-hover:block text-zinc-500 hover:text-zinc-600 dark:text-zinc-400
                          dark:hover:text-zinc-300 transition"
                         />
                     </ActionToolTip>
                     <ActionToolTip label="delete">
                         <Trash2
-                        onClick={() =>onOpen("deleteChannel",{server,channel})}
+                        onClick={(e) =>onAction(e,"deleteChannel")}
                         className="h-4 w-4 hidden group-hover:block text-zinc-500 hover:text-zinc-600 dark:text-zinc-400
                          dark:hover:text-zinc-300 transition"
                         />
