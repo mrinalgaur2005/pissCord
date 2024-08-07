@@ -10,7 +10,8 @@ export type ModelType = "createServer"
                         | "deleteServer"
                         | "deleteChannel"
                         | "editChannel"
-                        | 'messageFile';
+                        | 'messageFile'
+                        | 'deleteMessage';
 
 interface ModelData{
     server?:Server;
