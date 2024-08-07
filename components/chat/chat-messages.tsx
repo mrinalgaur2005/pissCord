@@ -9,7 +9,7 @@ import { MessageWithMemberWithProfile } from "@/types.";
 import { ChatItem } from "./chat-item";
 import {format} from 'date-fns';
 
-const DATE_FORMAT= 'd MMM YYY , HH:mm'
+const DATE_FORMAT= 'd MMM yyy , HH:mm'
 
 
 interface ChatMessagesProps{
